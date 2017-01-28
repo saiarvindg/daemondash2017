@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/saiarvindg/daemondash2017/issues"
   },
-  "homepage": "https://github.com/saiarvindg/daemondash2017#readme"
+  "homepage": "https://github.com/saiarvindg/daemondash2017#readme",
+  "dependencies": {
+    "unirest": "^0.5.1"
+  }
 }
