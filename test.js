@@ -106,4 +106,21 @@ asdf = function(mess) {
 
 }
 
+//helper for asdf
+hasConflict = function(curr, sections) {
+    for each (var t in curr.times) { // times is a field in the meetingTimes object.
+        for each (var s in sections) {
+            for each (var st in s.times) {
+                if (t.day == st.day) {
+                    if ((t.start > st.start && t.start < st.end) || (t.end > st.start && t.end < st.end)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
 testFunction();
