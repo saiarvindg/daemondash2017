@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/saiarvindg/daemondash2017#readme",
   "dependencies": {
+    "moment": "^2.17.1",
     "unirest": "^0.5.1"
   }
 }
