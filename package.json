@@ -1,0 +1,24 @@
+{
+  "name": "daemondash2017",
+  "version": "1.0.0",
+  "description": "collaborative schedule creater   asdf Test commit from one of the commandoes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saiarvindg/daemondash2017.git"
+  },
+  "keywords": [
+    "schedule",
+    "daemondash",
+    "umd"
+  ],
+  "author": "Daniel Choi, SaiArvind Ganganapalle, Christian Nguyendinh, Tim Zhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saiarvindg/daemondash2017/issues"
+  },
+  "homepage": "https://github.com/saiarvindg/daemondash2017#readme"
+}
