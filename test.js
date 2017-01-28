@@ -116,7 +116,7 @@ validateFirst = function(classes) {
     for (count = 0; count < classes.length; count++) {
         var newGoodOnes = [[]];
         //Go through all the section times per class
-        forEach(var meeting in c.times) {
+        c.forEach(meeting) {
             var foundMatch = false;
             //MeetingTimes in the class
             if (count == 0) { //add array with the single meeting to goodOnes
@@ -125,7 +125,7 @@ validateFirst = function(classes) {
                 goodOnes.push(tmp);
             } else {
                 //Current  set of already compatible section times in goodOnes 
-                forEach(var possibleMeetings in goodOnes) {
+                goodOnes.forEach(possibleMeetings) {
                     //no conflicts with this possibleMeeting combination
                     if (!hasConflict(meeting, possibleMeetings)) {
                        newGoodOnes.push(possibleMeetings.push(meeting)); 
@@ -148,9 +148,9 @@ validateFirst = function(classes) {
 
 //Determines if a meeting conflicts with a set of already validated meetings
 hasConflict = function(curr, sections) {
-    forEach(var t in curr.times) { // times is a field in the meetingTimes object.
-        forEach(var s in sections) {
-            forEach(var st in s.times) {
+    curr.forEach(t) { // times is a field in the meetingTimes object.
+        sections.forEach(s) {
+            st.forEach(s.times) {
                 if (t.day == st.day) {
                     if ((t.start > st.start && t.start < st.end) || (t.end > st.start && t.end < st.end)) {
                         return true;
@@ -162,9 +162,5 @@ hasConflict = function(curr, sections) {
     return false;
 }
 
-<<<<<<< HEAD
 testFunction(['ENES100', 'CMSC131']);
-=======
 
-testFunction();
->>>>>>> e12318d288f6681c25cc3b54b521c7604c65d355
