@@ -14,8 +14,9 @@ router.get('/', function(req, res) {
 
 router.route('/classes')
     .get(function(req, res) {
-        //res.json({message: "lkasjdfk;l"});
-        res.json(myFunc());
+        var x = myFunc();
+        res.json({message: x});
+        //res.json(myFunc());
     });
 
 server.use('/api', router);
