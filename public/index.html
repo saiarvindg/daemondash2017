@@ -126,10 +126,18 @@
                 </button>
                 <hr>
             </div>
-        </div>
+        </div><!--end queryInfo-->
 
-        <div id="scheduleInfo">
+        <div class="row">
+            <div id="scheduleInfo">
+                <div id="student1Schedule" class="col-sm-6">
 
+                </div>
+
+                <div id="student2Schedule" class="col-sm-6">
+                    
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.container -->
@@ -195,7 +203,7 @@
                 let table1 = document.createElement('table');
                 let headerRow = document.createElement('tr');
                 let d = document.createElement('caption')
-                d.innerHTML = "Right Student"
+                d.innerHTML = "Student 2"
                 table1.appendChild(d);
 
                 d = document.createElement('th')
@@ -275,7 +283,7 @@
                 let table2 = document.createElement('table');
                 headerRow = document.createElement('tr');
                 d = document.createElement('caption')
-                d.innerHTML = "Left Student"
+                d.innerHTML = "Student 1"
                 table2.appendChild(d);
 
                 d = document.createElement('th')
@@ -351,8 +359,8 @@
                     table2.appendChild(row);
                 }
 
-                document.getElementById('scheduleInfo').appendChild(table1);
-                document.getElementById('scheduleInfo').appendChild(table2);
+                document.getElementById('student2Schedule').appendChild(table1);
+                document.getElementById('student1Schedule').appendChild(table2);
             }
         });
 
