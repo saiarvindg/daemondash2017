@@ -224,10 +224,6 @@ getOverlaps = function(scheduleArr1, scheduleArr2) {
             console.log(p.s1[x].times);
         }
         console.log("\ns2");
-
-        console.log(p.s2);
-       
-
         for (var x = 0; x < p.s2.length; x++) {
             console.log("Section: " + p.s2[x].section);
             console.log(p.s2[x].times);
