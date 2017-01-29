@@ -62,8 +62,7 @@ testFunction = function(classNames) {
                         //console.log(response.body['meetings'][0]['days']);
 
                         var dayString = response.body['meetings'][0]['days'].toString();
-
-                        for (let i = 0; i < dayString.length - 1; i++) {
+                        for (let i = 0; i < dayString.length; i++) {
                             var dayChar = "";
                             if (dayString[i] != 'T') {
                                 dayChar = dayString[i];
@@ -71,7 +70,6 @@ testFunction = function(classNames) {
                                 dayChar = dayString[i] + dayString[i + 1];
                                 i++;
                             }
-                            
                             var sectionObj = {
                                 days: dayChar,
                                 start: startTimeFormatted,
@@ -112,6 +110,7 @@ asdf = function(classes1) {
 
 // Contains functions to help filter one person
 validateFirst = function(classes1) {
+    console.log(classes1)
     var goodOnes = [];
     var notPossible = false;
     var isFirst = true;
@@ -159,12 +158,12 @@ validateFirst = function(classes1) {
             goodOnes = newGoodOnes;
             console.log("New good");
         }
-        console.log(goodOnes);
+        //console.log(goodOnes);
         isFirst = false;
 
     }
     
-    //console.log(goodOnes);
+    console.log(goodOnes);
 }
 
 
@@ -232,5 +231,5 @@ var tempSections = [
 
 console.log(hasConflict(tempCurr, tempSections));
 */
-testFunction(['ENES100', 'CMSC131']);
+testFunction(['HACS208C', 'HACS100']);
 
