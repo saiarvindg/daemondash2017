@@ -17,6 +17,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
     <style>
     body {
         padding-top: 70px;
@@ -186,6 +187,118 @@
         socket.on('give data', function(dataInfo) {
             console.log(dataInfo)
             document.getElementById('queryInfo').style.display = "none";
+
+            for (let pair of dataInfo.data) {
+
+                console.log("\n----\n s1");
+                for (let schedule of pair.s1) {
+                    let Marray = [];
+                    let Tuarray = [];
+                    let Warray = [];
+                    let Tharray = [];
+                    let Farray = [];
+
+                    for (let time of schedule.times) {
+                        if (time.days == 'M'){
+                            Marray.push(time);
+                        }
+                        else if (time.days == 'Tu') {
+                            Tuarray.push(time);
+                        }
+                        else if (time.days == 'W') {
+                            Warray.push(time);
+                        }
+                        else if (time.days == 'Th') {
+                            Tharray.push(time);
+                        }
+                        else if (time.days == 'F') {
+                            Farray.push(time);
+                        }
+                    }
+                }
+
+
+                let table = document.createElement('table');
+                let headerRow = document.createElement('tr');
+                let d = document.createElement('caption')
+                d.innerHTML = "Left Student"
+                table.appendChild(d);
+
+                d = document.createElement('th')
+                d.innerHTML = "Section"
+                headerRow.appendChild(d);
+                d = document.createElement('th')
+                d.innerHTML = "M"
+                headerRow.appendChild(d);
+                d = document.createElement('th')
+                d.innerHTML = "Tu"
+                headerRow.appendChild(d);
+                d = document.createElement('th')
+                d.innerHTML = "W"
+                headerRow.appendChild(d);
+                d = document.createElement('th')
+                d.innerHTML = "Th"
+                headerRow.appendChild(d);
+                d = document.createElement('th')
+                d.innerHTML = "F"
+                headerRow.appendChild(d);
+                table.appendChild(headerRow);
+
+                console.log("---- s2");
+                for (let section of pair.s2) {
+                    let row = document.createElement('tr');
+                    let Marray = [];
+                    let Tuarray = [];
+                    let Warray = [];
+                    let Tharray = [];
+                    let Farray = [];
+
+                    data = document.createElement('td');
+                    data.innerHTML = section.section;
+                    row.appendChild(data);
+                    for (let time of section.times) {
+                        if (time.days == 'M'){
+                            Marray.push(time.start + " - " + time.end);
+                        }
+                        else if (time.days == 'Tu') {
+                            Tuarray.push(time.start + " - " + time.end);
+                        }
+                        else if (time.days == 'W') {
+                            Warray.push(time.start + " - " + time.end);
+                        }
+                        else if (time.days == 'Th') {
+                            Tharray.push(time.start + " - " + time.end);
+                        }
+                        else if (time.days == 'F') {
+                            Farray.push(time.start + " - " + time.end);
+                        }
+                    }
+
+                    data = document.createElement('td');
+                    data.innerHTML = Marray.toString().replace(',', "<br />");
+                    row.appendChild(data);
+
+                    data = document.createElement('td');
+                    data.innerHTML = Tuarray.toString().replace(',', "<br />");
+                    row.appendChild(data);
+
+                    data = document.createElement('td');
+                    data.innerHTML = Warray.toString().replace(',', "<br />");
+                    row.appendChild(data);
+
+                    data = document.createElement('td');
+                    data.innerHTML = Tharray.toString().replace(',', "<br />");
+                    row.appendChild(data);
+
+                    data = document.createElement('td');
+                    data.innerHTML = Farray.toString().replace(',', "<br />");
+                    row.appendChild(data);
+
+                    table.appendChild(row);
+                }
+
+                document.getElementById('scheduleInfo').appendChild(table);
+            }
         });
 
     });
