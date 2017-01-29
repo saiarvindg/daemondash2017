@@ -187,16 +187,17 @@ hasConflict = function(curr, sections) {
 }
 
 schedulesLoaded = function() {
-    console.log(studentSchedules[0]);
-    console.log("\n=====\n");
-    console.log(studentSchedules[1]);
+    //console.log(studentSchedules[0]);
+    //console.log("\n=====\n");
+    //console.log(studentSchedules[1]);
+    getOverlaps(studentSchedules[0], studentSchedules[1]);
 }
 
-getOverlaps = function(scheduleArr1, schedulesArr2) {
+getOverlaps = function(scheduleArr1, scheduleArr2) {
     //schedules is an array of "schedule" 
     //A schedule is an array of sections
     var absoluteMax = 1;
-    var perfectPairs;
+    var perfectPairs = [];
     //Go through all schedules in first student
 
     scheduleArr1.forEach((schedule1) => {
@@ -217,8 +218,12 @@ getOverlaps = function(scheduleArr1, schedulesArr2) {
         });
 
     });
-
-    return perfectPairs;
+    perfectPairs.forEach((p) => {
+        console.log("\n=====\ns1");
+        console.log(p.s1);
+        console.log("\ns2");
+        console.log(p.s2);
+    });
 }
 
 numClassesInCommon = function(schedule1, schedule2) {
@@ -233,7 +238,7 @@ numClassesInCommon = function(schedule1, schedule2) {
 }
 
 makePair = function(schedule1, schedule2) {
-    var pair;
+    var pair = {};
     pair.s1 = schedule1;
     pair.s2 = schedule2;
     return pair;
@@ -290,7 +295,7 @@ console.log(hasCo
 conflict(tempCurr, tempSections));
 
 */
-var s1 = ['CMSC411', 'HONR219W'];
+var s1 = ['CMSC411', 'STAT401'];
 var s2 = ['STAT401', 'CMSC412'];
 
 var StudentClasses = [s1, s2];
