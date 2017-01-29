@@ -99,7 +99,7 @@
                     <div class="input-group" id="student1">
                     <input type="text" id="student1Textbox" class="form-control" placeholder="Student 1 Courses">
                     <span class="input-group-btn">
-                        <button id="student1Btn" class="btn btn-primary" type="button">Add</button>
+                        <button id="student1Btn" class="btn btn-primary" type="button" disabled="true">Add</button>
                     </span>
                     </div><!-- /input-group -->
                     <ul id="courseListStudent1" class="list-group">
@@ -111,7 +111,7 @@
                     <div class="input-group" id="student2">
                     <input type="text" id="student2Textbox" class="form-control" placeholder="Student 2 Courses">
                     <span class="input-group-btn">
-                        <button id="student2Btn" class="btn btn-primary" type="button">Add</button>
+                        <button id="student2Btn" class="btn btn-primary" type="button" disabled="true">Add</button>
                     </span>
                     </div><!-- /input-group -->
                     <ul id="courseListStudent2" class="list-group">
@@ -150,6 +150,27 @@
         var socket = io();
         var student1Courses = [];
         var student2Courses = [];
+        const regex = /^[a-zA-z]{4}\d{3}[a-zA-z]{0,1}$/; //matches 4 letters, 3 digits, optionally 1 letter
+
+        $('#student1Textbox').on('input',function(e){
+            if (regex.test($('#student1Textbox').val())) {
+                document.getElementById('student1Btn').disabled = false;
+            } else {
+                console.log("doesnt matches");
+                document.getElementById('student1Btn').disabled = true;
+                $('#student1Textbox').popover();
+            }
+        });
+
+        $('#student2Textbox').on('input',function(e){
+            if (regex.test($('#student2Textbox').val())) {
+                document.getElementById('student2Btn').disabled = false;
+            } else {
+                console.log("doesnt matches");
+                document.getElementById('student2Btn').disabled = true;
+                $('#student1Textbox').popover();
+            }
+        });
 
         $('#student1Btn').click(function() {
             liTemplate = "<li class='list-group-item'>" + $('#student1Textbox').val().toUpperCase() + 
@@ -162,7 +183,7 @@
         });
 
         $('#student2Btn').click(function() {
-            liTemplate = "<li class='list-group-item'>" + $('#student2Textbox').val() + 
+            liTemplate = "<li class='list-group-item'>" + $('#student2Textbox').val().toUpperCase() + 
             "<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon glyphicon-trash'></span></button></span></li>";
             $('#courseListStudent2').append(liTemplate);
             courseName = $('#student2Textbox').val();
