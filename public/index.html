@@ -48,8 +48,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                -->
-                <a class="navbar-brand" href="#">Collaborative Scheduler</a>
+                
+                <a class="navbar-brand" href="#">Collaborative Scheduler</a> -->
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,7 +77,7 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>Two Students One Schedule</h1>
+                <h1>Collaborative Scheduler</h1>
                 <p class="lead">Creates schedules for you and a friend so you can be in the same classes!!</p>
                 
             </div>
@@ -87,9 +87,9 @@
             <div class="row">
             <div class="col-xs-12" style="padding: 0 40px">
                 <ol class="list-group">
-                    <li class="list-group">Enter your classes.</li>
-                    <li class="list-group">Have your friend enter his or her classes.</li>
-                    <li class="list-group">Hit submit.</li>
+                    <li class="list-group">Enter your classes in Student 1 Classes.</li>
+                    <li class="list-group">Have your friend enter his or her classes in Student 2 Classes.</li>
+                    <li class="list-group">Hit Generate Schedules.</li>
                 </ol>
             </div>
             </div>
@@ -126,10 +126,12 @@
                 </button>
                 <hr>
             </div>
-        </div>
+        </div><!--end queryInfo-->
 
-        <div id="scheduleInfo">
+        <div class="row">
+            <div id="scheduleInfo">
 
+            </div>
         </div>
     </div>
     <!-- /.container -->
@@ -196,7 +198,7 @@
                 table1.style.cssFloat = 'left';
                 let headerRow = document.createElement('tr');
                 let d = document.createElement('caption')
-                d.innerHTML = "Right Student"
+                d.innerHTML = "Student 2"
                 table1.appendChild(d);
 
                 d = document.createElement('th')
@@ -276,7 +278,7 @@
                 let table2 = document.createElement('table');
                 headerRow = document.createElement('tr');
                 d = document.createElement('caption')
-                d.innerHTML = "Left Student"
+                d.innerHTML = "Student 1"
                 table2.appendChild(d);
 
                 d = document.createElement('th')
