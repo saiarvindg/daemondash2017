@@ -135,7 +135,8 @@ validateFirst = function(classes1) {
                     console.log("fdsa")
                     console.log(possibleMeetings);
                     if (!hasConflict(meeting, possibleMeetings)) {
-                       newGoodOnes.push(possibleMeetings.push(meeting)); 
+                       possibleMeetings.push(meeting); //add the section number that fits 
+                       newGoodOnes.push(possibleMeetings); //now add the sections to the newGoodOnes
                        foundMatch = true;
                     }
                 });
