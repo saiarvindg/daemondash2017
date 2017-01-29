@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="./favicon.ico">
-	<script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
 
     <title>Sanya Commando</title>
 
@@ -139,7 +139,6 @@
         //var liTemplate = "<li class='list-group-item'>" + courseName + 
         //"<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon 
         // glyphicon-trash'></span></button></span></li>";
-        var socket = io();
         var student1Courses = [];
         var student2Courses = [];
 
@@ -164,22 +163,20 @@
             });
         });
 
+        var socket = io();
+
         $('#generate').click(function(){
             console.log("clicked generate");
             $('#courseListStudent1 li').each(function() {
                 student1Courses.push($(this).text());
+                console.log(student1Courses);
             });
             $('#courseListStudent2 li').each(function() {
                 student2Courses.push($(this).text());
             });
-
-            console.log("clicking")
-            socket.emit('get data', {data: "kill me"});
+            socket.emit('get data', {p1: student1Courses, p2: student2Courses});
         });
 
-        socket.on('give data', function(dataInfo) {
-            console.log(dataInfo)
-        });
        });
     </script>
 
