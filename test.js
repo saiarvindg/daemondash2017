@@ -115,41 +115,52 @@ validateFirst = function(classes1) {
     var goodOnes = [];
     var notPossible = false;
     var isFirst = true;
-    //contains sets of valid MeetingTimes
+    
     //Go through all classes
     for (let c in classes1) {
         var newGoodOnes = [];
+        //console.log("Class");
+        //console.log(c);
         //Give classname c, get all of c's sections as an array
         //each section is passed in the forEach
         classes1[c].forEach((section) => {
-
             var foundMatch = false;
             //sections for the first class, add them all to goodOnes
             if (isFirst) { 
+                //console.log("First");
                 var tmp = [];
                 tmp.push(section);
                 goodOnes.push(tmp);
+                //console.log(goodOnes.length);
+                //console.log(goodOnes);
             } else {
-                //Current  set of already compatible section times in goodOnes 
+                //Current set of already compatible section times in goodOnes
+                //console.log(goodOnes.length);
                 goodOnes.forEach((goodSchedule) => {
-                    //no conflicts with this possibleMeeting combination
-                    console.log("fdsa")
-                    //console.log(possibleMeetings);
+                    //no conflicts with this combination
+                   
                     if (!hasConflict(section, goodSchedule)) {
-                       possibleMeetings.push(section); //add the section number that fits 
-                       newGoodOnes.push(goodSchedule); //now add the sections to the newGoodOnes
-                       foundMatch = true;
+                        var combined = goodSchedule.concat(section); //add section number that fits
+                        newGoodOnes.push(combined); //now add the sections to the newGoodOnes
+                        foundMatch = true;
+                        //console.log("Putting!");
                     }
                 });
             }
+            //console.log("After");
+            
+            //console.log(goodOnes);
             
             if (!foundMatch) {
                 return null;
             }        
         });
-        
+        if (newGoodOnes.length != 0) {
+            goodOnes = newGoodOnes;
+            console.log("New good");
+        }
+        console.log(goodOnes);
         isFirst = false;
-        goodOnes = newGoodOnes;
 
     }
     
