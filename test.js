@@ -207,16 +207,11 @@ getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
     //Go through all schedules in first student
 
     scheduleArr1.forEach((schedule1) => {
-        if (perfectPairs.length == 25) 
-            return;
-
         scheduleArr2.forEach((schedule2) => {
-            if (perfectPairs.length == 25) 
-                return;
-
             var localMax = numClassesInCommon(schedule1, schedule2);
+            console.log(localMax + "don't worry, its loading :)");
             
-            if (localMax <= 0) {
+            if (localMax < absoluteMax) {
                 return; //no classes in common so move on to next schedule2
             }
             else if (localMax == absoluteMax) {
@@ -231,7 +226,7 @@ getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
 
     });
 
-    callback(perfectPairs);
+    callback(perfectPairs.splice(0, 25), absoluteMax);
     /*
     perfectPairs.forEach((p) => {
         console.log("\n=====\ns1");
