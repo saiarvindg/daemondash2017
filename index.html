@@ -1,45 +1,185 @@
-<!DOCTYPE HTML>
-<!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Collaborative Scheduler</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="./favicon.ico">
-		<script src="/socket.io/socket.io.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-	</head>
-	<body>
-			<div id="wrapper">
-					<div id="main">
-						<div class="inner">
-							<h1 align="center">Generic Page</h1>
+<head>
 
-							<div class="course-entry" id="student1">
-								<input id="inputBox" type="text" placeholder="Enter Course Here">
-								<button id="submitButton" style="display: block;">Submit</button>
-							</div>
-						</div>
-					</div>
-			</div>
-			
-			<script>
-				var socket = io();
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="/socket.io/socket.io.js"></script>
 
-				document.getElementById('submitButton').onclick = function(e) {
-					console.log("clicking")
-					socket.emit('get data', {data: "kill me"});
-					e.preventDefault();
-				};
 
-				socket.on('give data', function(dataInfo) {
-					console.log(dataInfo)
-				});
-			</script>
+    <title>Sanya Commando</title>
 
-	</body>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <!--
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                -->
+                <a class="navbar-brand" href="#">Collaborative Scheduler</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+                -->
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Two Students One Schedule</h1>
+                <p class="lead">Creates schedules for you and a friend so you can be in the same classes!!</p>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+        <div class="col-xs-12" style="padding: 0 40px">
+            <ol class="list-group">
+                <li class="list-group">Enter your classes.</li>
+                <li class="list-group">Have your friend enter his or her classes.</li>
+                <li class="list-group">Hit submit.</li>
+            </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group" id="student1">
+                  <input type="text" id="student1Textbox" class="form-control" placeholder="Student 1 Courses">
+                  <span class="input-group-btn">
+                    <button id="student1Btn" class="btn btn-primary" type="button">Add</button>
+                  </span>
+                </div><!-- /input-group -->
+                <ul id="courseListStudent1" class="list-group">
+                  
+                </ul>
+            </div><!-- /.col-lg-6 -->
+
+            <div class="col-sm-6">
+                <div class="input-group" id="student2">
+                  <input type="text" id="student2Textbox" class="form-control" placeholder="Student 2 Courses">
+                  <span class="input-group-btn">
+                    <button id="student2Btn" class="btn btn-primary" type="button">Add</button>
+                  </span>
+                </div><!-- /input-group -->
+                <ul id="courseListStudent2" class="list-group">
+                </ul>
+            </div><!-- /.col-lg-6 -->
+        </div>
+
+        <div class="row">
+            <hr>
+              <button class="btn btn-success btn-lg dropdown-toggle center-block" id="generate" type="submit">
+                Generate Schedules
+              </button>
+              <hr>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready( function () {
+        //var courseName = "CMCS216";
+        //var liTemplate = "<li class='list-group-item'>" + courseName + 
+        //"<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon 
+        // glyphicon-trash'></span></button></span></li>";
+        var student1Courses = [];
+        var student2Courses = [];
+
+        $('#student1Btn').click(function() {
+            liTemplate = "<li class='list-group-item'>" + $('#student1Textbox').val() + 
+            "<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon glyphicon-trash'></span></button></span></li>";
+            $('#courseListStudent1').append(liTemplate);
+            $('.deleteCourseBtn').click(function() {
+                console.log("deleted course");
+                $(this).parent().parent().remove();
+            });
+        });
+
+        $('#student2Btn').click(function() {
+            liTemplate = "<li class='list-group-item'>" + $('#student2Textbox').val() + 
+            "<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon glyphicon-trash'></span></button></span></li>";
+            $('#courseListStudent2').append(liTemplate);
+            courseName = $('#student2Textbox').val();
+            $('.deleteCourseBtn').click(function() {
+                console.log("deleted course");
+                $(this).parent().parent().remove();
+            });
+        });
+
+        var socket = io();
+
+        $('#generate').click(function(){
+            console.log("clicked generate");
+            $('#courseListStudent1 li').each(function() {
+                student1Courses.push($(this).text());
+                console.log(student1Courses);
+            });
+            $('#courseListStudent2 li').each(function() {
+                student2Courses.push($(this).text());
+            });
+            socket.emit('the data', {p1: student1Courses, p2: student2Courses});
+        });
+
+       });
+    </script>
+
+</body>
+
 </html>

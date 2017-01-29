@@ -12,14 +12,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket) {
 	// Send a chat message to everyone in the specified room
-	socket.on('get data', function(dataInfo) {
+	socket.on('the data', function(dataInfo) {
         console.log(dataInfo)
-        processData();
+        processData(dataInfo.p1, dataInfo.p2);
 	});
 
-    function processData() {
-        var s1 = ['HACS208P', 'STAT401'];
-        var s2 = ['STAT401', 'HACS408L'];
+    function processData(p1, p2) {
+        var s1 = p1;
+        var s2 = p2;
 
        myFunc(s1, s2, giveData);
     };
