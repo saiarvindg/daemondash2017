@@ -156,9 +156,7 @@
             if (regex.test($('#student1Textbox').val())) {
                 document.getElementById('student1Btn').disabled = false;
             } else {
-                console.log("doesnt matches");
                 document.getElementById('student1Btn').disabled = true;
-                $('#student1Textbox').popover();
             }
         });
 
@@ -166,9 +164,7 @@
             if (regex.test($('#student2Textbox').val())) {
                 document.getElementById('student2Btn').disabled = false;
             } else {
-                console.log("doesnt matches");
                 document.getElementById('student2Btn').disabled = true;
-                $('#student1Textbox').popover();
             }
         });
 
@@ -234,7 +230,7 @@
                 let centerIt = document.createElement('center');
                 let noDataDiv = document.createElement('div');
                 noDataDiv.style.color = 'purple';
-                noDataDiv.innerHTML = "Max number of classes togeter is: <b>" + dataInfo.max + "</b>";
+                noDataDiv.innerHTML = "Max number of classes together is: <b>" + dataInfo.max + "</b>";
                 centerIt.appendChild(noDataDiv);
                 document.getElementById('scheduleInfo').appendChild(centerIt);
             }
