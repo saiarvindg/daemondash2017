@@ -1,10 +1,8 @@
 var unirest = require('unirest');
 var moment = require('moment');
 
-var sections = [];
-var classes = {};
-var innerFlag = 0;
-var please = "11";
+var studentSchedules = [];
+var numStudents = 0;
 
 /*
 
@@ -31,6 +29,9 @@ var please = "11";
 
 
 testFunction = function(classNames) {
+    let innerFlag = 0;
+    let sections = [];
+    let classes = {};
     for (let k = 0; k < classNames.length; k++) {
         unirest
         .get('http://api.umd.io/v0/courses/' + classNames[k])
@@ -90,7 +91,7 @@ testFunction = function(classNames) {
                     if (innerFlag == 0) {
                         //console.log(classes)
                         validateFirst(classes);
-                        return classes;
+                        //return classes;
                     }
                 });
             });
@@ -130,7 +131,6 @@ validateFirst = function(classes1) {
                 tmp.push(section);
                 goodOnes.push(tmp);
                 //console.log(goodOnes.length);
-                //console.log(goodOnes);
             } else {
                 //Current set of already compatible section times in goodOnes
                 //console.log(goodOnes.length);
@@ -140,34 +140,40 @@ validateFirst = function(classes1) {
                         var combined = goodSchedule.concat(section); //add section number that fits
                         newGoodOnes.push(combined); //now add the sections to the newGoodOnes
                         foundMatch = true;
-                        //console.log("Putting!");
                     }
                 });
             }
             //console.log("After");
     
         });
-        if (isFirst) {
+        if (!isFirst) {
             goodOnes = newGoodOnes;
         }
         //console.log(goodOnes);
         isFirst = false;
 
     }
-    
-    console.log(goodOnes);
+    //console.log(goodOnes)
+    studentSchedules.push(goodOnes);
+    if (studentSchedules.length == numStudents)
+        schedulesLoaded();
 }
 
 
 //Determines if a meeting conflicts with a set of already validated meetings
 hasConflict = function(curr, sections) {
     let returnValue = false;
+    console.log(sections);
+    console.log(curr);
     sections.forEach((section) => {
         section.times.forEach((st) => {
             curr.times.forEach((currTimesObj) => {
-                if (currTimesObj.day == st.day) {
-                    if ((currTimesObj.start > st.start && currTimesObj.start < st.end) || (currTimesObj.end > st.start && currTimesObj.end < st.end)) {
-                        console.log("i got here")
+                console.log(st.days + " AAAA " + currTimesObj.days);
+                if (currTimesObj.days == st.days) {
+                    //console.log('\n---\n' + curr.section + ' - ' + section.section);
+                    //console.log(st.days);
+                    //console.log(currTimesObj.start + " vs. " + st.start);
+                    if ((currTimesObj.start >= st.start && currTimesObj.start <= st.end) || (currTimesObj.end >= st.start && currTimesObj.end <= st.end)) {
                         returnValue = true;    
                     }
                 }
@@ -175,6 +181,12 @@ hasConflict = function(curr, sections) {
         });
     });
     return returnValue;
+}
+
+schedulesLoaded = function() {
+    console.log(studentSchedules[0]);
+    console.log("\n=====\n");
+    console.log(studentSchedules[1]);
 }
 
 /* TEST CASES FOR hasConflict
@@ -225,6 +237,14 @@ var tempSections = [
 ]
 
 console.log(hasConflict(tempCurr, tempSections));
-*/
-testFunction(['HACS208N', 'HACS202']);
 
+*/
+var s1 = ['CMSC411', 'HONR219W'];
+var s2 = ['STAT401', 'CMSC412'];
+
+var StudentClasses = [s1, s2];
+numStudents = StudentClasses.length;
+
+for (let i = 0; i < StudentClasses.length; i++) {
+    testFunction(StudentClasses[i]);
+}
