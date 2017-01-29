@@ -62,7 +62,7 @@ testFunction = function(classNames) {
                         var endTimeFormatted = moment(endTime, ["h:mmA"]).format("HHmm");
                         //console.log(response.body['meetings'][0]['days']);
 
-                        var dayString = response.body['meetings'][0]['days'].toString();
+                        var dayString = meeting['days'].toString();
                         for (let i = 0; i < dayString.length; i++) {
                             var dayChar = "";
                             if (dayString[i] != 'T') {
@@ -103,10 +103,16 @@ testFunction = function(classNames) {
 while (flag != 0) {
     console.log(flag);
 }
-console.log(classes);*/
+console.log(classes);
+*/
 
 asdf = function(classes1) {
-    console.log(classes1);
+    for (let c in classes1) {
+        console.log(c);
+        classes1[c].forEach((section) => {
+            console.log(section);
+        })
+    }
 }
 
 // Contains functions to help filter one person
@@ -163,12 +169,9 @@ validateFirst = function(classes1) {
 //Determines if a meeting conflicts with a set of already validated meetings
 hasConflict = function(curr, sections) {
     let returnValue = false;
-    console.log(sections);
-    console.log(curr);
     sections.forEach((section) => {
         section.times.forEach((st) => {
             curr.times.forEach((currTimesObj) => {
-                console.log(st.days + " AAAA " + currTimesObj.days);
                 if (currTimesObj.days == st.days) {
                     //console.log('\n---\n' + curr.section + ' - ' + section.section);
                     //console.log(st.days);
@@ -201,7 +204,7 @@ getOverlaps = function(scheduleArr1, schedulesArr2) {
             var localMax = numClassesInCommon(schedule1, schedule2);
             
             if (localMax <= 0) {
-                continue; //no classes in common so move on to next schedule2
+                return; //no classes in common so move on to next schedule2
             }
             else if (localMax == absoluteMax) {
                 perfectPairs.push(makePair(schedule1, schedule2));
