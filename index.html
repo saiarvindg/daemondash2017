@@ -174,7 +174,7 @@
             $('#courseListStudent2 li').each(function() {
                 student2Courses.push($(this).text());
             });
-            socket.emit('the data', {p1: student1Courses, p2: student2Courses});
+            socket.emit('get data', {p1: student1Courses, p2: student2Courses});
         });
 
        });
