@@ -110,7 +110,6 @@ asdf = function(classes1) {
 
 // Contains functions to help filter one person
 validateFirst = function(classes1) {
-    console.log(classes1)
     var goodOnes = [];
     var notPossible = false;
     var isFirst = true;
@@ -137,7 +136,6 @@ validateFirst = function(classes1) {
                 //console.log(goodOnes.length);
                 goodOnes.forEach((goodSchedule) => {
                     //no conflicts with this combination
-                   
                     if (!hasConflict(section, goodSchedule)) {
                         var combined = goodSchedule.concat(section); //add section number that fits
                         newGoodOnes.push(combined); //now add the sections to the newGoodOnes
@@ -147,16 +145,10 @@ validateFirst = function(classes1) {
                 });
             }
             //console.log("After");
-            
-            //console.log(goodOnes);
-            
-            if (!foundMatch) {
-                return null;
-            }        
+    
         });
-        if (newGoodOnes.length != 0) {
+        if (isFirst) {
             goodOnes = newGoodOnes;
-            console.log("New good");
         }
         //console.log(goodOnes);
         isFirst = false;
@@ -172,11 +164,14 @@ hasConflict = function(curr, sections) {
     let returnValue = false;
     sections.forEach((section) => {
         section.times.forEach((st) => {
-            if (curr.day == st.day) {
-                if ((curr.start > st.start && curr.start < st.end) || (curr.end > st.start && curr.end < st.end)) {
-                    returnValue = true;    
+            curr.times.forEach((currTimesObj) => {
+                if (currTimesObj.day == st.day) {
+                    if ((currTimesObj.start > st.start && currTimesObj.start < st.end) || (currTimesObj.end > st.start && currTimesObj.end < st.end)) {
+                        console.log("i got here")
+                        returnValue = true;    
+                    }
                 }
-            }
+            });
         });
     });
     return returnValue;
@@ -231,5 +226,5 @@ var tempSections = [
 
 console.log(hasConflict(tempCurr, tempSections));
 */
-testFunction(['HACS208C', 'HACS100']);
+testFunction(['HACS208N', 'HACS202']);
 
