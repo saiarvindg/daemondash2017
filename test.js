@@ -238,9 +238,9 @@ getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
 
 numClassesInCommon = function(schedule1, schedule2) {
     var common = 0; // # of classes in common
-    schedule1.forEach((sections1) => {      // Each section in the first student's schedule
-        schedule2.forEach((sections2) => {  // Each section in the second student's schedule
-            if (sections1.section === sections2.section) // Compare the names
+    schedule1.forEach((section1) => {      // Each section in the first student's schedule
+        schedule2.forEach((section2) => {  // Each section in the second student's schedule
+            if (section1.section === section2.section) // Compare the names
                 common++;
         });
     });
@@ -252,6 +252,20 @@ makePair = function(schedule1, schedule2) {
     pair.s1 = schedule1;
     pair.s2 = schedule2;
     return pair;
+}
+
+getCommonSections(schedule1, schedule2) {
+    var common = [];
+    
+    schedule1.forEach((section1) => { //go thrru 1's sections
+        schedule2.forEach((section2) => {//compare each 1's section with all 2's sections
+            if (section1.section === section2.section) {
+                common.push(section1); //if a section matches
+            }
+        });
+    });
+    
+    return common;
 }
 
 /* TEST CASES FOR hasConflict
