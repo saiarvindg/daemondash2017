@@ -193,6 +193,7 @@
             for (let pair of dataInfo.data) {
                 
                 let table1 = document.createElement('table');
+                table1.style.cssFloat = 'left';
                 let headerRow = document.createElement('tr');
                 let d = document.createElement('caption')
                 d.innerHTML = "Right Student"
@@ -351,8 +352,12 @@
                     table2.appendChild(row);
                 }
 
-                document.getElementById('scheduleInfo').appendChild(table1);
-                document.getElementById('scheduleInfo').appendChild(table2);
+                var divRow = document.createElement('div');
+                //divRow.className = 'row';
+                divRow.style.display = 'inline-block';
+                divRow.appendChild(table1);
+                divRow.appendChild(table2);
+                document.getElementById('scheduleInfo').appendChild(divRow);
             }
         });
 
