@@ -190,6 +190,13 @@
             console.log(dataInfo)
             document.getElementById('queryInfo').style.display = "none";
 
+            if (dataInfo.data.hasOwnProperty('type')) {
+                let errDiv = document.createElement('div');
+                errDiv.style.color = 'red';
+                errDiv.innerHTML = dataInfo.data.message;
+                document.getElementById('scheduleInfo').appendChild(errDiv);
+                return;
+            }
             
 
             for (let pair of dataInfo.data) {
