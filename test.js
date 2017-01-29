@@ -218,12 +218,16 @@ getOverlaps = function(scheduleArr1, scheduleArr2) {
         });
 
     });
+   
     perfectPairs.forEach((p) => {
         console.log("\n=====\ns1");
         console.log(p.s1);
         console.log("\ns2");
         console.log(p.s2);
+       
     });
+    
+   
 }
 
 numClassesInCommon = function(schedule1, schedule2) {
@@ -295,8 +299,8 @@ console.log(hasCo
 conflict(tempCurr, tempSections));
 
 */
-var s1 = ['CMSC411', 'STAT401'];
-var s2 = ['STAT401', 'CMSC412'];
+var s1 = ['STAT400'];
+var s2 = ['CMSC216', 'STAT400'];
 
 var StudentClasses = [s1, s2];
 numStudents = StudentClasses.length;
