@@ -72,7 +72,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" id="content">
 
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -82,48 +82,53 @@
             </div>
         </div>
         <!-- /.row -->
+        <div id="queryInfo">
+            <div class="row">
+            <div class="col-xs-12" style="padding: 0 40px">
+                <ol class="list-group">
+                    <li class="list-group">Enter your classes.</li>
+                    <li class="list-group">Have your friend enter his or her classes.</li>
+                    <li class="list-group">Hit submit.</li>
+                </ol>
+            </div>
+            </div>
 
-        <div class="row">
-        <div class="col-xs-12" style="padding: 0 40px">
-            <ol class="list-group">
-                <li class="list-group">Enter your classes.</li>
-                <li class="list-group">Have your friend enter his or her classes.</li>
-                <li class="list-group">Hit submit.</li>
-            </ol>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group" id="student1">
+                    <input type="text" id="student1Textbox" class="form-control" placeholder="Student 1 Courses">
+                    <span class="input-group-btn">
+                        <button id="student1Btn" class="btn btn-primary" type="button">Add</button>
+                    </span>
+                    </div><!-- /input-group -->
+                    <ul id="courseListStudent1" class="list-group">
+                    
+                    </ul>
+                </div><!-- /.col-lg-6 -->
+
+                <div class="col-sm-6">
+                    <div class="input-group" id="student2">
+                    <input type="text" id="student2Textbox" class="form-control" placeholder="Student 2 Courses">
+                    <span class="input-group-btn">
+                        <button id="student2Btn" class="btn btn-primary" type="button">Add</button>
+                    </span>
+                    </div><!-- /input-group -->
+                    <ul id="courseListStudent2" class="list-group">
+                    </ul>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="row">
+                <hr>
+                <button class="btn btn-success btn-lg dropdown-toggle center-block" id="generate" type="submit">
+                    Generate Schedules
+                </button>
+                <hr>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="input-group" id="student1">
-                  <input type="text" id="student1Textbox" class="form-control" placeholder="Student 1 Courses">
-                  <span class="input-group-btn">
-                    <button id="student1Btn" class="btn btn-primary" type="button">Add</button>
-                  </span>
-                </div><!-- /input-group -->
-                <ul id="courseListStudent1" class="list-group">
-                  
-                </ul>
-            </div><!-- /.col-lg-6 -->
+        <div id="scheduleInfo">
 
-            <div class="col-sm-6">
-                <div class="input-group" id="student2">
-                  <input type="text" id="student2Textbox" class="form-control" placeholder="Student 2 Courses">
-                  <span class="input-group-btn">
-                    <button id="student2Btn" class="btn btn-primary" type="button">Add</button>
-                  </span>
-                </div><!-- /input-group -->
-                <ul id="courseListStudent2" class="list-group">
-                </ul>
-            </div><!-- /.col-lg-6 -->
-        </div>
-
-        <div class="row">
-            <hr>
-              <button class="btn btn-success btn-lg dropdown-toggle center-block" id="generate" type="submit">
-                Generate Schedules
-              </button>
-              <hr>
         </div>
     </div>
     <!-- /.container -->
@@ -143,7 +148,7 @@
         var student2Courses = [];
 
         $('#student1Btn').click(function() {
-            liTemplate = "<li class='list-group-item'>" + $('#student1Textbox').val() + 
+            liTemplate = "<li class='list-group-item'>" + $('#student1Textbox').val().toUpperCase() + 
             "<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon glyphicon-trash'></span></button></span></li>";
             $('#courseListStudent1').append(liTemplate);
             $('.deleteCourseBtn').click(function() {
@@ -166,18 +171,25 @@
         var socket = io();
 
         $('#generate').click(function(){
+            student1Courses = [];
+            student2Courses = [];
             console.log("clicked generate");
             $('#courseListStudent1 li').each(function() {
-                student1Courses.push($(this).text());
+                student1Courses.push($(this).text().trim());
                 console.log(student1Courses);
             });
             $('#courseListStudent2 li').each(function() {
-                student2Courses.push($(this).text());
+                student2Courses.push($(this).text().trim());
             });
             socket.emit('get data', {p1: student1Courses, p2: student2Courses});
         });
 
-       });
+        socket.on('give data', function(dataInfo) {
+            console.log(dataInfo)
+            document.getElementById('queryInfo').style.display = "none";
+        });
+
+    });
     </script>
 
 </body>

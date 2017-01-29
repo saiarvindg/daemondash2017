@@ -31,12 +31,19 @@ testFunction = function(classNames, callback) {
     let sections = [];
     let classes = {};
     for (let k = 0; k < classNames.length; k++) {
+        console.log("Querying " + classNames[k]);
         unirest
         .get('http://api.umd.io/v0/courses/' + classNames[k])
         .end((response) => {
             sections = response.body['sections'];
             //console.log(response.body['sections']);
             var className = response.body['course_id'];
+            
+            if (sections == undefined) {
+                callback({type: 'error', message: response.body['message']});
+                return;
+            }
+
             innerFlag += sections.length;
             classes[className] = [];
             sections.map(function(section) {
@@ -167,21 +174,22 @@ validateFirst = function(classes1, callback) {
 //Determines if a meeting conflicts with a set of already validated meetings
 hasConflict = function(curr, sections) {
     let returnValue = false;
-    sections.forEach((section) => {
-        section.times.forEach((st) => {
-            curr.times.forEach((currTimesObj) => {
+    for (let section of sections) {
+        for (let st of section.times) {
+            for (let currTimesObj of curr.times) {
                 if (currTimesObj.days == st.days) {
                     //console.log('\n---\n' + curr.section + ' - ' + section.section);
                     //console.log(st.days);
                     //console.log(currTimesObj.start + " vs. " + st.start);
                     if ((currTimesObj.start >= st.start && currTimesObj.start <= st.end) || (currTimesObj.end >= st.start && currTimesObj.end <= st.end)) {
-                        returnValue = true;    
+                        //returnValue = true; 
+                        return true;   
                     }
                 }
-            });
-        });
-    });
-    return returnValue;
+            }
+        }
+    }
+    return false;
 }
 
 schedulesLoaded = function(callback) {
@@ -199,7 +207,13 @@ getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
     //Go through all schedules in first student
 
     scheduleArr1.forEach((schedule1) => {
+        if (perfectPairs.length == 25) 
+            return;
+
         scheduleArr2.forEach((schedule2) => {
+            if (perfectPairs.length == 25) 
+                return;
+
             var localMax = numClassesInCommon(schedule1, schedule2);
             
             if (localMax <= 0) {

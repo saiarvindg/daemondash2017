@@ -13,7 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 io.on('connection', function(socket) {
 	// Send a chat message to everyone in the specified room
 	socket.on('get data', function(dataInfo) {
-        // console.log(dataInfo)
+        console.log("I got: ");
+        console.log(dataInfo.p1);
+        console.log(dataInfo.p2);
         processData(dataInfo.p1, dataInfo.p2);
 	});
 
