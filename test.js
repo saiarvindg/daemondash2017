@@ -116,7 +116,7 @@ validateFirst = function(classes) {
     for (count = 0; count < classes.length; count++) {
         var newGoodOnes = [[]];
         //Go through all the section times per class
-        c.forEach(meeting) {
+        c.forEach((meeting) => {
             var foundMatch = false;
             //MeetingTimes in the class
             if (count == 0) { //add array with the single meeting to goodOnes
@@ -125,19 +125,19 @@ validateFirst = function(classes) {
                 goodOnes.push(tmp);
             } else {
                 //Current  set of already compatible section times in goodOnes 
-                goodOnes.forEach(possibleMeetings) {
+                goodOnes.forEach((possibleMeetings) => {
                     //no conflicts with this possibleMeeting combination
                     if (!hasConflict(meeting, possibleMeetings)) {
                        newGoodOnes.push(possibleMeetings.push(meeting)); 
                        foundMatch = true;
                     }
-                }
+                });
             }
             
             if (!foundMatch) {
                 return null;
             }        
-        }
+        });
         
         goodOnes = newGoodOnes;
     }
@@ -148,19 +148,67 @@ validateFirst = function(classes) {
 
 //Determines if a meeting conflicts with a set of already validated meetings
 hasConflict = function(curr, sections) {
-    curr.forEach(t) { // times is a field in the meetingTimes object.
-        sections.forEach(s) {
-            st.forEach(s.times) {
-                if (t.day == st.day) {
-                    if ((t.start > st.start && t.start < st.end) || (t.end > st.start && t.end < st.end)) {
-                        return true;
-                    }
+    let returnValue = false;
+    sections.forEach((section) => {
+        section.times.forEach((st) => {
+            if (curr.day == st.day) {
+                if ((curr.start > st.start && curr.start < st.end) || (curr.end > st.start && curr.end < st.end)) {
+                    returnValue = true;    
                 }
             }
-        }
-    }
-    return false;
+        });
+    });
+    return returnValue;
 }
 
+/* TEST CASES FOR hasConflict
+
+var tempCurr = {
+    day: "M",
+    start: 1100,
+    end: 1150
+}
+
+var tempSections = [
+    {
+        section: "Myclass100",
+        times: [{
+            day: "Tu",
+            start: 1000,
+            end: 1050
+        },
+        {
+            day: "Th",
+            start: 1100,
+            end: 1150
+        },
+        {
+            day: "M",
+            start: 1000,
+            end: 1050
+        }]
+    },
+    {
+        section: "Myclass101",
+        times: [{
+            day: "Tu",
+            start: 1030,
+            end: 1130
+        },
+        {
+            day: "Th",
+            start: 1100,
+            end: 1150
+        },
+        {
+            day: "M",
+            start: 1200,
+            end: 1230
+        }]
+    }
+]
+
+console.log(hasConflict(tempCurr, tempSections));
+*/
 testFunction(['ENES100', 'CMSC131']);
 
