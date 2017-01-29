@@ -144,6 +144,7 @@
         //var liTemplate = "<li class='list-group-item'>" + courseName + 
         //"<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon 
         // glyphicon-trash'></span></button></span></li>";
+        var socket = io();
         var student1Courses = [];
         var student2Courses = [];
 
@@ -167,8 +168,6 @@
                 $(this).parent().parent().remove();
             });
         });
-
-        var socket = io();
 
         $('#generate').click(function(){
             student1Courses = [];
