@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Collaborative Scheduler</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="/socket.io/socket.io.js"></script>
+
+	</head>
+	<body>
+			<div id="wrapper">
+					<div id="main">
+						<div class="inner">
+							<h1 align="center">Generic Page</h1>
+
+							<div class="course-entry" id="student1">
+								<input id="inputBox" type="text" placeholder="Enter Course Here">
+								<button id="submitButton" style="display: block;">Submit</button>
+							</div>
+						</div>
+					</div>
+			</div>
+			
+			<script>
+				var socket = io();
+
+				document.getElementById('submitButton').onclick = function(e) {
+					console.log("clicking")
+					socket.emit('get data', {data: "kill me"});
+					e.preventDefault();
+				};
+
+				socket.on('give data', function(dataInfo) {
+					console.log(dataInfo)
+				});
+			</script>
+
+	</body>
+</html>

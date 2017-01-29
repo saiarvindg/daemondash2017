@@ -26,7 +26,7 @@ var numStudents = 0;
 
 */
 
-testFunction = function(classNames) {
+testFunction = function(classNames, callback) {
     let innerFlag = 0;
     let sections = [];
     let classes = {};
@@ -88,7 +88,7 @@ testFunction = function(classNames) {
                     innerFlag--;
                     if (innerFlag == 0) {
                         //console.log(classes)
-                        validateFirst(classes);
+                        validateFirst(classes, callback);
                         //return classes;
                     }
                 });
@@ -114,7 +114,7 @@ asdf = function(classes1) {
 }
 
 // Contains functions to help filter one person
-validateFirst = function(classes1) {
+validateFirst = function(classes1, callback) {
     var goodOnes = [];
     var notPossible = false;
     var isFirst = true;
@@ -160,7 +160,7 @@ validateFirst = function(classes1) {
     //console.log(goodOnes)
     studentSchedules.push(goodOnes);
     if (studentSchedules.length == numStudents)
-        schedulesLoaded();
+        schedulesLoaded(callback);
 }
 
 
@@ -184,14 +184,14 @@ hasConflict = function(curr, sections) {
     return returnValue;
 }
 
-schedulesLoaded = function() {
+schedulesLoaded = function(callback) {
     //console.log(studentSchedules[0]);
     //console.log("\n=====\n");
     //console.log(studentSchedules[1]);
-    getOverlaps(studentSchedules[0], studentSchedules[1]);
+    getOverlaps(studentSchedules[0], studentSchedules[1], callback);
 }
 
-getOverlaps = function(scheduleArr1, scheduleArr2) {
+getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
     //schedules is an array of "schedule" 
     //A schedule is an array of sections
     var absoluteMax = 1;
@@ -216,7 +216,9 @@ getOverlaps = function(scheduleArr1, scheduleArr2) {
         });
 
     });
-   
+
+    callback(perfectPairs);
+    /*
     perfectPairs.forEach((p) => {
         console.log("\n=====\ns1");
         for (var x = 0; x < p.s1.length; x++) {
@@ -230,7 +232,7 @@ getOverlaps = function(scheduleArr1, scheduleArr2) {
         }
 
     });
-    
+    */
    
 }
 
@@ -301,16 +303,17 @@ var tempSections = [
 
 console.log(hasCo
 conflict(tempCurr, tempSections));
-
 */
 
-var s1 = ['CMSC330', 'STAT401', 'FILM421', 'HACS208P'];
-var s2 = ['STAT401', 'CMSC330', 'FILM421', 'HACS408L'];
+startItUp = function(s1, s2, callback) {
+    var StudentClasses = [s1, s2];
+    numStudents = StudentClasses.length;
 
-
-var StudentClasses = [s1, s2];
-numStudents = StudentClasses.length;
-
-for (let i = 0; i < StudentClasses.length; i++) {
-    testFunction(StudentClasses[i]);
+    for (let i = 0; i < StudentClasses.length; i++) {
+        testFunction(StudentClasses[i], callback);
+    }
 }
+
+
+
+module.exports = startItUp;

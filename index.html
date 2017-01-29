@@ -59,13 +59,8 @@
 							<h1 align="center">Generic Page</h1>
 
 							<div class="course-entry" id="student1">
-							<input type="text" placeholder="Enter Course Here">
-							<button style="display: block;">+</button>
-							</div>
-
-							<div class="course-entry" id="student2">
-							<input type="text" placeholder="Enter Course Here">
-							<button style="display: block;">+</button>
+								<input id="inputBox" type="text" placeholder="Enter Course Here">
+								<button id="submitButton" style="display: block;">Submit</button>
 							</div>
 						</div>
 					</div>
@@ -119,6 +114,21 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			
+			<script>
+
+				document.getElementById('chatForm').onsubmit = function(e) {
+					socket.emit('get data', {data: "kill me"});
+					e.preventDefault();
+				};
+
+				socket.on('give data', function(msgInfo) {
+					let mBox = document.getElementById(msgInfo.room + "-room");
+					let newText = document.createElement('p');
+					newText.innerHTML = msgInfo.user + ": " + msgInfo.msg;
+					mBox.appendChild(newText);
+				});
+			</script>
 
 	</body>
 </html>
