@@ -91,7 +91,7 @@ testFunction = function(classNames) {
                     innerFlag--;
                     if (innerFlag == 0) {
                         //console.log(classes)
-                        asdf(classes);
+                        validateFirst(classes);
                         return classes;
                     }
                 });
@@ -106,17 +106,22 @@ while (flag != 0) {
 }
 console.log(classes);*/
 
+asdf = function(classes1) {
+    console.log(classes1);
+}
+
 // Contains functions to help filter one person
-validateFirst = function(classes) {
+validateFirst = function(classes1) {
     var goodOnes = [[]];
     var notPossible = false;
     //contains sets of valid MeetingTimes
     var count;
     //Go through all classes
-    for (count = 0; count < classes.length; count++) {
+    for (let c in classes1) {
         var newGoodOnes = [[]];
         //Go through all the section times per class
-        c.forEach((meeting) => {
+        classes1[c].forEach((meeting) => {
+
             var foundMatch = false;
             //MeetingTimes in the class
             if (count == 0) { //add array with the single meeting to goodOnes
@@ -127,6 +132,8 @@ validateFirst = function(classes) {
                 //Current  set of already compatible section times in goodOnes 
                 goodOnes.forEach((possibleMeetings) => {
                     //no conflicts with this possibleMeeting combination
+                    console.log("fdsa")
+                    console.log(possibleMeetings);
                     if (!hasConflict(meeting, possibleMeetings)) {
                        newGoodOnes.push(possibleMeetings.push(meeting)); 
                        foundMatch = true;
@@ -142,7 +149,7 @@ validateFirst = function(classes) {
         goodOnes = newGoodOnes;
     }
     
-    return goodOnes;
+    console.log(goodOnes);
 }
 
 
