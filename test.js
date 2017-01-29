@@ -57,6 +57,9 @@ testFunction = function(classNames, callback) {
 
                     var sectionName = response.body['section_id'];
                     var meetingTimes = [];
+                    if (response.body['meetings'] == undefined) {
+                        return;
+                    }
                     response.body['meetings'].map((meeting) => {
                         var startTime = meeting['start_time'];
                         if (startTime == "")
