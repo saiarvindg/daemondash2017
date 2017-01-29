@@ -139,6 +139,7 @@
         //var liTemplate = "<li class='list-group-item'>" + courseName + 
         //"<span class='pull-right'> <button class='btn btn-xs btn-danger deleteCourseBtn'> <span class='glyphicon 
         // glyphicon-trash'></span></button></span></li>";
+        var socket = io();
         var student1Courses = [];
         var student2Courses = [];
 
@@ -163,8 +164,6 @@
             });
         });
 
-        var socket = io();
-
         $('#generate').click(function(){
             console.log("clicked generate");
             $('#courseListStudent1 li').each(function() {
@@ -175,6 +174,10 @@
                 student2Courses.push($(this).text());
             });
             socket.emit('get data', {p1: student1Courses, p2: student2Courses});
+        });
+
+         socket.on('give data', function(dataInfo) {
+            console.log(dataInfo)
         });
 
        });
