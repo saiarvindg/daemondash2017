@@ -26,9 +26,9 @@ io.on('connection', function(socket) {
        myFunc(s1, s2, giveData);
     };
 
-    function giveData(stuff) {
+    function giveData(stuff, absMax) {
         console.log("made it")
-        socket.emit('give data', {data: stuff});
+        socket.emit('give data', {data: stuff, max: absMax});
     };
 });
 

@@ -191,18 +191,38 @@
             document.getElementById('queryInfo').style.display = "none";
 
             if (dataInfo.data.hasOwnProperty('type')) {
+                // error case
+                let centerIt = document.createElement('center');
                 let errDiv = document.createElement('div');
                 errDiv.style.color = 'red';
                 errDiv.innerHTML = dataInfo.data.message;
-                document.getElementById('scheduleInfo').appendChild(errDiv);
+                centerIt.appendChild(errDiv);
+                document.getElementById('scheduleInfo').appendChild(centerIt);
                 return;
+            } else if (dataInfo.data.length == 0) {
+                // no matching schedule case
+                let centerIt = document.createElement('center');
+                let noDataDiv = document.createElement('div');
+                noDataDiv.style.color = 'purple';
+                noDataDiv.innerHTML = "No schedules with matching classes found!?!";
+                centerIt.appendChild(noDataDiv);
+                document.getElementById('scheduleInfo').appendChild(centerIt);
+                return;
+            } else {
+                // regular case
+                let centerIt = document.createElement('center');
+                let noDataDiv = document.createElement('div');
+                noDataDiv.style.color = 'purple';
+                noDataDiv.innerHTML = "Max number of classes togeter is: <b>" + dataInfo.max + "</b>";
+                centerIt.appendChild(noDataDiv);
+                document.getElementById('scheduleInfo').appendChild(centerIt);
             }
             
-
+            
             for (let pair of dataInfo.data) {
                 
                 let table1 = document.createElement('table');
-                table1.style.cssFloat = 'left';
+                table1.style.cssFloat = 'right';
                 let headerRow = document.createElement('tr');
                 let d = document.createElement('caption')
                 d.innerHTML = "Student 2"
