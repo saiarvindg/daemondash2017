@@ -26,8 +26,6 @@ var numStudents = 0;
 
 */
 
-
-
 testFunction = function(classNames) {
     let innerFlag = 0;
     let sections = [];
@@ -221,10 +219,20 @@ getOverlaps = function(scheduleArr1, scheduleArr2) {
    
     perfectPairs.forEach((p) => {
         console.log("\n=====\ns1");
-        console.log(p.s1);
+        for (var x = 0; x < p.s1.length; x++) {
+            console.log("Section: " + p.s1[x].section);
+            console.log(p.s1[x].times);
+        }
         console.log("\ns2");
+
         console.log(p.s2);
        
+
+        for (var x = 0; x < p.s2.length; x++) {
+            console.log("Section: " + p.s2[x].section);
+            console.log(p.s2[x].times);
+        }
+
     });
     
    
@@ -299,8 +307,10 @@ console.log(hasCo
 conflict(tempCurr, tempSections));
 
 */
-var s1 = ['STAT400'];
-var s2 = ['CMSC216', 'STAT400'];
+
+var s1 = ['CMSC330', 'STAT401', 'FILM421', 'HACS208P'];
+var s2 = ['STAT401', 'CMSC330', 'FILM421', 'HACS408L'];
+
 
 var StudentClasses = [s1, s2];
 numStudents = StudentClasses.length;
