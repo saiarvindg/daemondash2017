@@ -114,28 +114,30 @@ asdf = function(classes1) {
 validateFirst = function(classes1) {
     var goodOnes = [];
     var notPossible = false;
+    var isFirst = true;
     //contains sets of valid MeetingTimes
     //Go through all classes
     for (let c in classes1) {
         var newGoodOnes = [];
-        //Go through all the section times per class
-        classes1[c].forEach((meeting) => {
+        //Give classname c, get all of c's sections as an array
+        //each section is passed in the forEach
+        classes1[c].forEach((section) => {
 
             var foundMatch = false;
-            //MeetingTimes in the class
-            if (goodOnes.length == 0) { //add array with the single meeting to goodOnes
+            //sections for the first class, add them all to goodOnes
+            if (isFirst) { 
                 var tmp = [];
-                tmp.push(meeting);
+                tmp.push(section);
                 goodOnes.push(tmp);
             } else {
                 //Current  set of already compatible section times in goodOnes 
-                goodOnes.forEach((possibleMeetings) => {
+                goodOnes.forEach((goodSchedule) => {
                     //no conflicts with this possibleMeeting combination
                     console.log("fdsa")
                     //console.log(possibleMeetings);
-                    if (!hasConflict(meeting, possibleMeetings)) {
-                       possibleMeetings.push(meeting); //add the section number that fits 
-                       newGoodOnes.push(possibleMeetings); //now add the sections to the newGoodOnes
+                    if (!hasConflict(section, goodSchedule)) {
+                       possibleMeetings.push(section); //add the section number that fits 
+                       newGoodOnes.push(goodSchedule); //now add the sections to the newGoodOnes
                        foundMatch = true;
                     }
                 });
@@ -146,6 +148,7 @@ validateFirst = function(classes1) {
             }        
         });
         
+        isFirst = false;
         goodOnes = newGoodOnes;
 
     }
