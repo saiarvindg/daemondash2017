@@ -254,7 +254,7 @@ makePair = function(schedule1, schedule2) {
     return pair;
 }
 
-getCommonSections(schedule1, schedule2) {
+getCommonSections = function(schedule1, schedule2) {
     var common = [];
     
     schedule1.forEach((section1) => { //go thrru 1's sections
