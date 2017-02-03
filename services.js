@@ -26,7 +26,7 @@ var numStudents = 0;
 
 */
 
-testFunction = function(classNames, callback) {
+function testFunction(classNames, callback) {
     let innerFlag = 0;
     let sections = [];
     let classes = {};
@@ -107,14 +107,7 @@ testFunction = function(classNames, callback) {
     }
 };
 
-/*
-while (flag != 0) {
-    console.log(flag);
-}
-console.log(classes);
-*/
-
-asdf = function(classes1) {
+function debug(classes1) {
     for (let c in classes1) {
         console.log(c);
         classes1[c].forEach((section) => {
@@ -124,7 +117,7 @@ asdf = function(classes1) {
 }
 
 // Contains functions to help filter one person
-validateFirst = function(classes1, callback) {
+function validateFirst(classes1, callback) {
     var goodOnes = [];
     var notPossible = false;
     var isFirst = true;
@@ -175,7 +168,7 @@ validateFirst = function(classes1, callback) {
 
 
 //Determines if a meeting conflicts with a set of already validated meetings
-hasConflict = function(curr, sections) {
+function hasConflict(curr, sections) {
     let returnValue = false;
     for (let section of sections) {
         for (let st of section.times) {
@@ -195,14 +188,14 @@ hasConflict = function(curr, sections) {
     return false;
 }
 
-schedulesLoaded = function(callback) {
+function schedulesLoaded(callback) {
     //console.log(studentSchedules[0]);
     //console.log("\n=====\n");
     //console.log(studentSchedules[1]);
     getOverlaps(studentSchedules[0], studentSchedules[1], callback);
 }
 
-getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
+function getOverlaps(scheduleArr1, scheduleArr2, callback) {
     //schedules is an array of "schedule" 
     //A schedule is an array of sections
     var absoluteMax = 1;
@@ -248,7 +241,7 @@ getOverlaps = function(scheduleArr1, scheduleArr2, callback) {
    
 }
 
-numClassesInCommon = function(schedule1, schedule2) {
+function numClassesInCommon(schedule1, schedule2) {
     var common = 0; // # of classes in common
     schedule1.forEach((section1) => {      // Each section in the first student's schedule
         schedule2.forEach((section2) => {  // Each section in the second student's schedule
@@ -259,14 +252,14 @@ numClassesInCommon = function(schedule1, schedule2) {
     return common;
 }
 
-makePair = function(schedule1, schedule2) {
+function makePair(schedule1, schedule2) {
     var pair = {};
     pair.s1 = schedule1;
     pair.s2 = schedule2;
     return pair;
 }
 
-getCommonSections = function(schedule1, schedule2) {
+function getCommonSections(schedule1, schedule2) {
     var common = [];
     
     schedule1.forEach((section1) => { //go thrru 1's sections
@@ -280,58 +273,7 @@ getCommonSections = function(schedule1, schedule2) {
     return common;
 }
 
-/* TEST CASES FOR hasConflict
-
-var tempCurr = {
-    day: "M",
-    start: 1100,
-    end: 1150
-}
-
-var tempSections = [
-    {
-        section: "Myclass100",
-        times: [{
-            day: "Tu",
-            start: 1000,
-            end: 1050
-        },
-        {
-            day: "Th",
-            start: 1100,
-            end: 1150
-        },
-        {
-            day: "M",
-            start: 1000,
-            end: 1050
-        }]
-    },
-    {
-        section: "Myclass101",
-        times: [{
-            day: "Tu",
-            start: 1030,
-            end: 1130
-        },
-        {
-            day: "Th",
-            start: 1100,
-            end: 1150
-        },
-        {
-            day: "M",
-            start: 1200,
-            end: 1230
-        }]
-    }
-]
-
-console.log(hasCo
-conflict(tempCurr, tempSections));
-*/
-
-startItUp = function(s1, s2, callback) {
+module.exports = function(s1, s2, callback) {
     var StudentClasses = [s1, s2];
     numStudents = StudentClasses.length;
 
@@ -339,7 +281,3 @@ startItUp = function(s1, s2, callback) {
         testFunction(StudentClasses[i], callback);
     }
 }
-
-
-
-module.exports = startItUp;
