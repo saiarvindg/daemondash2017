@@ -33,7 +33,7 @@ function testFunction(classNames, callback) {
     for (let k = 0; k < classNames.length; k++) {
         console.log("Querying " + classNames[k]);
         unirest
-        .get('http://api.umd.io/v0/courses/' + classNames[k])
+        .get('https://api.umd.io/v0/courses/' + classNames[k])
         .end((response) => {
             sections = response.body['sections'];
             //console.log(response.body['sections']);
@@ -48,7 +48,7 @@ function testFunction(classNames, callback) {
             classes[className] = [];
             sections.map(function(section) {
                 unirest
-                .get('http://api.umd.io/v0/courses/sections/' + section)
+                .get('https://api.umd.io/v0/courses/sections/' + section)
                 .end(function(response) {
                     //console.log(response.body);
                     //console.log(response.body['section_id']);
